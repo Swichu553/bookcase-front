@@ -1,0 +1,77 @@
+/* LoginForm.css */
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #000;
+    font-family: 'Arial', sans-serif;
+}
+
+.login-form {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(255, 139, 139, 0.2);
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form h2 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.login-form form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form label,
+.login-form input {
+    margin: 10px 0;
+    width: 96%;
+    text-align: center;
+}
+
+.login-form label {
+    font-size: 16px;
+}
+
+.login-form input,
+.login-form textarea {
+    padding: 5px;
+    border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    text-align: center;
+}
+
+.login-form input::placeholder,
+.login-form textarea::placeholder {
+    color: #fff;
+}
+
+.login-form .button-container {
+    width: 100%;
+    text-align: center;
+}
+
+.login-form button {
+    padding: 8px;
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 98%;
+}
+
+.login-form button:hover {
+    background: #25f984;
+}
