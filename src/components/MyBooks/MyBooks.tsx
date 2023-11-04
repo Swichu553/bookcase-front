@@ -1,8 +1,18 @@
 import React from 'react';
 import './MyBooks.css';
+import { apiUrl } from '../../config/api';
 
 
 export const MyBooks = () => {
+    // const respons = async () => {
+    //     try {
+    //         const response = await fetch(`${apiUrl}/search`)
+    //         const books = await response.json();
+    //     } catch (e) {
+
+    //     }
+    // }
+
     const books = [
         { name: 'Książka 1', author: 'Autor 1' },
         { name: 'Książka 2', author: 'Autor 2' },
