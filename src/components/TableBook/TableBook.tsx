@@ -11,8 +11,9 @@ interface TableBookProps {
 }
 
 export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDeleteClick }) => {
-    const [inputVal, setInputVal] = useState('');
+
     const { search, setSearch } = useContext(SearchContext);
+    const [inputVal, setInputVal] = useState(search);
 
     const setSearchFromLocalState = (e: SyntheticEvent) => {
         e.preventDefault();
@@ -22,6 +23,7 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
     const setResetSearch = (e: SyntheticEvent) => {
         e.preventDefault();
         setSearch("");
+        setInputVal("");
     }
 
 

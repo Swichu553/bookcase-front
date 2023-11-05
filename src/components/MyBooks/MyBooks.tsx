@@ -12,8 +12,6 @@ export const MyBooks = () => {
     const [books, setBooks] = useState<AdBookEntity[]>([]);
     const token: String | undefined = Cookies.get('token');
 
-    console.log(userId)
-
     const handleEditClick = (book: AdBookEntity) => {
 
         console.log('Edycja książki', book);
@@ -26,7 +24,7 @@ export const MyBooks = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${apiUrl}/user/${userId}/books`, {
+            const res = await fetch(`${apiUrl}/user/${userId}/books/${search}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -36,7 +34,7 @@ export const MyBooks = () => {
             const data = await res.json();
             setBooks(data);
         })()
-    }, [])
+    }, [search])
 
     return (
         <>
