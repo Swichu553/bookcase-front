@@ -1,0 +1,36 @@
+.main-container {
+    display: flex;
+    background-color: black;
+    min-height: 100vh;
+}
+
+.menu {
+    padding: 10px;
+}
+
+.menu ul {
+    padding: 5px;
+}
+
+.menu li {
+    box-shadow: 0 0 10px rgba(255, 139, 139, 0.2);
+    border-radius: 20px;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.menu li.selected {
+    background-color: #007bff;
+    color: white;
+}
+
+.right-content {
+    flex: 1;
+    padding: 20px;
+}

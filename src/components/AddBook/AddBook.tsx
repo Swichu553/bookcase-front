@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-export const Account = () => {
+export const AddBook = () => {
     return (
         <>
-            Account
+            Add Book
         </>
     )
 

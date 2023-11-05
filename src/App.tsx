@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet, Router } from 'react-router-dom';
 import { LoginForm } from './components/LoginForm/LoginForm';
 import { Main } from './components/Main/Main';
 import { Header } from './components/Header/Header';
 import { apiUrl } from './config/api';
-import './App.css';
 import Cookies from 'js-cookie';
+import './App.css';
 
 export const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -14,6 +14,7 @@ export const App = () => {
     if (token) {
       setIsAuthenticated(true);
     } else {
+      setIsAuthenticated(false)
       try {
         const response = await fetch(`${apiUrl}/login`, {
           method: 'POST',
@@ -39,22 +40,21 @@ export const App = () => {
     };
   };
 
+  const defaultRedirect = isAuthenticated ? <Navigate to="/my" /> : <Navigate to="/login" />;
 
   return (
     <div>
       <Header />
       <Routes>
+        <Route path="/" element={defaultRedirect} />
         <Route
           path="/login"
           element={
-            isAuthenticated ? <Navigate to="/" /> : <LoginForm onLogin={handleLogin} />
-          }
-        />
+            isAuthenticated ? <Navigate to="/my" /> : <LoginForm onLogin={handleLogin} />} />
         <Route
-          path="/"
-          element={isAuthenticated ? <Main /> : <Navigate to="/login" />}
-        />
-        <Route index element={<Navigate to="/login" />} />
+          path="/my"
+          element={
+            isAuthenticated ? (<Main />) : (<Navigate to="/login" />)} />
       </Routes>
       <Outlet />
     </div>

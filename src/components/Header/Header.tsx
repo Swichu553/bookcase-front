@@ -4,7 +4,7 @@ import './Header.css'
 export const Header = () => {
     return (
         <header className='header'>
-            <h1 className='title'>Bilbioteczka</h1>
+            <h1 className='title'>📚 Biblioteczka 📚</h1>
         </header>
     );
 }
