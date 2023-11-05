@@ -55,6 +55,7 @@ export const App = () => {
           path="/my"
           element={
             isAuthenticated ? (<Main />) : (<Navigate to="/login" />)} />
+        <Route path="/:rest" element={defaultRedirect} />
       </Routes>
       <Outlet />
     </div>
