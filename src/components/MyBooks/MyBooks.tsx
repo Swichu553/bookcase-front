@@ -4,11 +4,15 @@ import { apiUrl } from '../../config/api';
 import { SearchContext } from '../../contexts/search.context';
 import { AdBookEntity } from 'types';
 import { TableBook } from '../TableBook/TableBook';
+import { UserContext } from '../../contexts/user.context';
 
 export const MyBooks = () => {
     const { search, setSearch } = useContext(SearchContext);
+    const { userId, setUserId } = useContext(UserContext)
     const [books, setBooks] = useState<AdBookEntity[]>([]);
     const token: String | undefined = Cookies.get('token');
+
+    console.log(userId)
 
     const handleEditClick = (book: AdBookEntity) => {
 
@@ -22,7 +26,7 @@ export const MyBooks = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${apiUrl}/book/search/${search}`, {
+            const res = await fetch(`${apiUrl}/user/${userId}/books`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,7 +36,7 @@ export const MyBooks = () => {
             const data = await res.json();
             setBooks(data);
         })()
-    }, [search])
+    }, [])
 
     return (
         <>
