@@ -1,0 +1,61 @@
+.book-table {
+    border-collapse: collapse;
+    width: 90%;
+    padding: 55px;
+}
+
+.book-table th,
+.book-table td {
+    text-align: center;
+    padding: 10px;
+    color: #fff;
+}
+
+.book-table th,
+.search {
+    box-shadow: 0 0 10px rgba(255, 139, 139, 0.2);
+    border-radius: 20px;
+    text-align: center;
+    color: #fff;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.search {
+    width: 400px;
+}
+
+.book-table tbody tr:nth-child(even) {
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(255, 139, 139, 0.2);
+}
+
+.book-table tbody tr:nth-child(odd) {
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(255, 139, 139, 0.2);
+}
+
+.edit-button,
+.delete-button,
+.search-button,
+.reset-button {
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 5px;
+    padding: 5px 10px;
+    width: auto;
+}
+
+.edit-button:hover,
+.search-button:hover,
+.reset-button:hover {
+    background: #25f984;
+}
+
+.delete-button:hover {
+    background: #f92c25;
+}

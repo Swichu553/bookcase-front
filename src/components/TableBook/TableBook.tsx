@@ -1,34 +1,39 @@
-import React from 'react';
+import React, { SyntheticEvent, useContext, useState } from 'react';
+import { AdBookEntity } from 'types';
+import { SearchContext } from '../../contexts/search.context';
+import './TableBook.css';
 
-interface Book {
-    id: string;
-    isbn: string;
-    title: string;
-    author: string;
-    publisher: string;
-    publicationDate: Date;
-    categories: string;
-    rating: string;
-    description: string;
-}
 
 interface TableBookProps {
-    books: Book[];
-    onEditClick: (book: Book) => void;
-    onDeleteClick: (book: Book) => void;
+    books: AdBookEntity[];
+    onEditClick: (book: AdBookEntity) => void;
+    onDeleteClick: (book: AdBookEntity) => void;
 }
 
 export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDeleteClick }) => {
+    const [inputVal, setInputVal] = useState('');
+    const { search, setSearch } = useContext(SearchContext);
+
+    const setSearchFromLocalState = (e: SyntheticEvent) => {
+        e.preventDefault();
+        setSearch(inputVal);
+    }
+
+    const setResetSearch = (e: SyntheticEvent) => {
+        e.preventDefault();
+        setSearch("");
+    }
+
+
     const headerLabels = [
-        'ISBN',
         'Tytuł',
+        'ISBN',
         'Autor',
         'Wydawca',
         'Data publikacji',
         'Kategorie',
         'Ocena',
         'Opis',
-        'Akcje',
     ];
 
     return (
@@ -41,14 +46,29 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
                 </tr>
             </thead>
             <tbody>
+                <div className="search">
+                    <input
+                        className="search-input"
+                        type="text"
+                        value={inputVal}
+                        onChange={e => setInputVal(e.target.value)}
+                        onKeyUp={(e) => {
+                            if (e.key === "Enter") {
+                                setSearchFromLocalState(e);
+                            }
+                        }}
+                    />
+                    <button className="search-button" onClick={setSearchFromLocalState}>Szukaj</button>
+                    <button className="reset-button" onClick={setResetSearch}>Reset</button>
+                </div>
                 {books.map((book) => (
                     <tr key={book.id}>
                         <td>{book.isbn}</td>
                         <td>{book.title}</td>
-                        <td>{book.author}</td>
+                        <td>{book.authorId}</td>
                         <td>{book.publisher}</td>
-                        <td>{book.publicationDate.toLocaleDateString()}</td>
-                        <td>{book.categories}</td>
+                        <td>{book.publicationDate ? book.publicationDate.toString() : 'Brak daty'}</td>
+                        <td>{book.categoriesId}</td>
                         <td>{book.rating}</td>
                         <td>{book.description}</td>
                         <td>
@@ -56,12 +76,12 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
                                 Edit
                             </button>
                             <button className="delete-button" onClick={() => onDeleteClick(book)}>
-                                Delete
+                                ❌
                             </button>
                         </td>
                     </tr>
                 ))}
             </tbody>
-        </table>
+        </table >
     );
 };
