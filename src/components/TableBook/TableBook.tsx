@@ -1,6 +1,7 @@
 import React, { SyntheticEvent, useContext, useState } from 'react';
-import { AdBookEntity } from 'types';
 import { SearchContext } from '../../contexts/search.context';
+import { headerLabels } from '../../utils/HeaderLabes';
+import { AdBookEntity } from 'types';
 import './TableBook.css';
 
 
@@ -27,16 +28,7 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
     }
 
 
-    const headerLabels = [
-        'Tytuł',
-        'ISBN',
-        'Autor',
-        'Wydawca',
-        'Data publikacji',
-        'Kategorie',
-        'Ocena',
-        'Opis',
-    ];
+
 
     return (
         <table className="book-table">

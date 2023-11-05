@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MyBooks } from '../MyBooks/MyBooks';
 import { AllBooks } from '../AllBooks/AllBooks';
-import { AddBook } from '../AddBook/AddBook';
+import { AddBookForm } from '../AddBookForm/AddBookForm';
 import { Account } from '../Account/Account';
 import Cookies from 'js-cookie';
 import "./Main.css"
@@ -26,7 +26,7 @@ export const Main = () => {
             case 'Wszystkie książki':
                 return <AllBooks />;
             case 'Dodaj książkę':
-                return <AddBook />;
+                return <AddBookForm />;
             case 'Konto':
                 return <Account />;
             case 'Wyloguj':
