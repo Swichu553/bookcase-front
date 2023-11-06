@@ -27,6 +27,9 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
         setInputVal("");
     }
 
+    const convertDate = (date: Date) => {
+        return new Date(date).toLocaleDateString();
+    }
 
 
 
@@ -57,12 +60,12 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
                 </div>
                 {books.map((book) => (
                     <tr key={book.id}>
-                        <td>{book.isbn}</td>
                         <td>{book.title}</td>
-                        <td>{book.authorId}</td>
+                        <td>{book.isbn}</td>
+                        <td>{book.author}</td>
                         <td>{book.publisher}</td>
-                        <td>{book.publicationDate ? book.publicationDate.toString() : 'Brak daty'}</td>
-                        <td>{book.categoriesId}</td>
+                        <td>{book.publicationDate ? convertDate(book.publicationDate) : 'Brak daty'}</td>
+                        <td>{book.categories}</td>
                         <td>{book.rating}</td>
                         <td>{book.description}</td>
                         <td>

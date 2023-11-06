@@ -15,9 +15,25 @@ export const AllBooks = () => {
         console.log('Edycja książki', book);
     };
 
-    const handleDeleteClick = (book: AdBookEntity) => {
-
-        console.log('Usuwanie książki', book);
+    const handleDeleteClick = async (book: AdBookEntity) => {
+        try {
+            const response = await fetch(`${apiUrl}/book/${book.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `${token}`,
+                },
+            });
+            if (response.status === 200) {
+                console.log('Książka została usunięta.');
+            } else if (response.status === 404) {
+                console.log('Książka nie została znaleziona.');
+            } else {
+                console.log('Błąd usuwania książki.');
+            }
+        } catch (error) {
+            console.error('Błąd usuwania książki:', error);
+        }
+        setSearch('*');
     };
 
     useEffect(() => {

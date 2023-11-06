@@ -1,44 +1,88 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { headerLabels } from '../../utils/HeaderLabes';
 import { AdBookEntity } from 'types';
+import { apiUrl } from '../../config/api';
+import Cookies from 'js-cookie';
 
 export const AddBookForm: React.FC = () => {
-    const [isbn, setIsbn] = useState('');
-    const [title, setTitle] = useState('');
-    const [author, setAuthor] = useState('');
-    const [publisher, setPublisher] = useState('');
-    const [publicationDate, setPublicationDate] = useState('');
-    const [categories, setCategories] = useState('');
-    const [rating, setRating] = useState('');
-    const [description, setDescription] = useState('');
+    const [book, setBook] = useState({
+        title: '',
+        isbn: '',
+        author: '',
+        publisher: '',
+        publicationDate: new Date(),
+        categories: '',
+        rating: '',
+        description: '',
+    } as AdBookEntity);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const [categories, setCategories] = useState<string[]>([]);
+    const [isbnError, setIsbnError] = useState('');
+    const token: String | undefined = Cookies.get('token');
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const res = await fetch(`${apiUrl}/categorie/search`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${token}`,
+                    },
+                });
+                const data = await res.json();
+                console.log(data);
+                const categoryNames = data.map((category: { name: String }) => category.name);
+                setCategories(categoryNames);
+            } catch (error) {
+                console.error('Błąd podczas pobierania kategorii:', error);
+            }
+        })();
+
+
+    }, []);
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+
+        if (name === 'isbn') {
+            const isbnRegex = /^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]{13}$/;
+
+            if (value === '' || isbnRegex.test(value)) {
+                setIsbnError('');
+            } else {
+                setIsbnError('Błędny numer ISBN');
+            }
+        }
+
+        setBook({
+            ...book,
+            [name]: value,
+        });
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        if (isbnError) {
+            return;
+        }
 
-        console.log('Dodano nową książkę:', {
-            isbn,
-            title,
-            author,
-            publisher,
-            publicationDate,
-            categories,
-            rating,
-            description,
+        const res = await fetch(`${apiUrl}/book/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${token}`,
+            },
+            body: JSON.stringify({
+                ...book,
+            })
         });
-
-        setIsbn('');
-        setTitle('');
-        setAuthor('');
-        setPublisher('');
-        setPublicationDate('');
-        setCategories('');
-        setRating('');
-        setDescription('');
+        console.log(res);
     };
 
     return (
-        <>
+        <div className="book-form-container">
             <table className="book-table">
                 <thead>
                     <tr>
@@ -47,22 +91,100 @@ export const AddBookForm: React.FC = () => {
                         ))}
                     </tr>
                 </thead>
-                <tbody className="book-table">
-                    <div onSubmit={handleSubmit}>
-                        <input type="text" placeholder="ISBN" value={isbn} onChange={(e) => setIsbn(e.target.value)} />
-                        <input type="text" placeholder="Tytuł" value={title} onChange={(e) => setTitle(e.target.value)} />
-                        <input type="text" placeholder="Autor" value={author} onChange={(e) => setAuthor(e.target.value)} />
-                        <input type="text" placeholder="Wydawca" value={publisher} onChange={(e) => setPublisher(e.target.value)} />
-                        <input type="text" placeholder="Data publikacji" value={publicationDate} onChange={(e) => setPublicationDate(e.target.value)} />
-                        <input type="text" placeholder="Kategorie" value={categories} onChange={(e) => setCategories(e.target.value)} />
-                        <input type="text" placeholder="Ocena" value={rating} onChange={(e) => setRating(e.target.value)} />
-                        <input type="text" placeholder="Opis" value={description} onChange={(e) => setDescription(e.target.value)} />
-                        <button type="submit">Dodaj książkę</button>
-                    </div>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input
+                                type="text"
+                                name="title"
+                                placeholder="Tytuł"
+                                value={book.title}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                name="isbn"
+                                placeholder="ISBN"
+                                value={book.isbn}
+                                onChange={handleInputChange}
+                                required
+                            />
+                            {isbnError && <div className="error-message">{isbnError}</div>}
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                name="author"
+                                placeholder="Autor"
+                                value={book.author}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                name="publisher"
+                                placeholder="Wydawca"
+                                value={book.publisher}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="Date"
+                                name="publicationDate"
+                                placeholder="Data publikacji"
+                                value={new Date(book.publicationDate).toISOString()}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </td>
+                        <td>
+                            <select
+                                name="categories"
+                                value={book.categories}
+                                onChange={handleInputChange}
+                                required
+                            >
+                                <option value="">Wybierz kategorie</option>
+                                {categories.map((category, index) => (
+                                    <option key={index} value={category}>
+                                        {category}
+                                    </option>
+                                ))}
+                            </select>
+                        </td>
+                        <td>
+                            <input
+                                type="Number"
+                                name="rating"
+                                placeholder="Ocena"
+                                value={book.rating}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                name="description"
+                                placeholder="Opis"
+                                value={book.description}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </td>
+                        <td>
+                            <button type="submit" onClick={handleSubmit}>Dodaj książkę</button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-
-        </>
-
+        </div>
     );
 };
