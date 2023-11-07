@@ -17,6 +17,10 @@ export const MyBooks = () => {
         console.log('Edycja książki', book);
     };
 
+    const handleAddClick = (book: AdBookEntity) => {
+
+    };
+
     const handleDeleteClick = (book: AdBookEntity) => {
 
         console.log('Usuwanie książki', book);
@@ -42,6 +46,7 @@ export const MyBooks = () => {
                 books={books}
                 onEditClick={handleEditClick}
                 onDeleteClick={handleDeleteClick}
+                onAddClick={handleAddClick}
             />
         </>
 

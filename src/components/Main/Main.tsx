@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MyBooks } from '../MyBooks/MyBooks';
 import { AllBooks } from '../AllBooks/AllBooks';
 import { AddBookForm } from '../AddBookForm/AddBookForm';
 import { Account } from '../Account/Account';
 import Cookies from 'js-cookie';
-import "./Main.css"
 import { useNavigate } from 'react-router-dom';
+import "./Main.css"
 
 export const Main = () => {
     const [selectedMenuItem, setSelectedMenuItem] = useState('Moje książki');
@@ -16,8 +16,15 @@ export const Main = () => {
         setSelectedMenuItem('Wyloguj');
         navigate('/login');
         window.location.reload();
-
     };
+
+    const [isBookAdded, setIsBookAdded] = useState(false);
+
+    useEffect(() => {
+        if (isBookAdded) {
+            setSelectedMenuItem('Wszystkie książki');
+        }
+    }, [isBookAdded, navigate]);
 
     const renderRightComponent = () => {
         switch (selectedMenuItem) {
@@ -26,7 +33,7 @@ export const Main = () => {
             case 'Wszystkie książki':
                 return <AllBooks />;
             case 'Dodaj książkę':
-                return <AddBookForm />;
+                return <AddBookForm isBookAdded={isBookAdded} setIsBookAdded={setIsBookAdded} />;
             case 'Konto':
                 return <Account />;
             case 'Wyloguj':
@@ -66,7 +73,8 @@ export const Main = () => {
                     </li>
                     <li
                         className={selectedMenuItem === 'Wyloguj' ? 'selected' : ''}
-                        onClick={handleLogout}>
+                        onClick={handleLogout}
+                    >
                         Wyloguj
                     </li>
                 </ul>
@@ -74,4 +82,4 @@ export const Main = () => {
             <div className="right-content">{renderRightComponent()}</div>
         </div>
     );
-}
+};

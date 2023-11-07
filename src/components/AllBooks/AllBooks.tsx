@@ -15,6 +15,10 @@ export const AllBooks = () => {
         console.log('Edycja książki', book);
     };
 
+    const handleAddClick = (book: AdBookEntity) => {
+
+    };
+
     const handleDeleteClick = async (book: AdBookEntity) => {
         try {
             const response = await fetch(`${apiUrl}/book/${book.id}`, {
@@ -25,6 +29,7 @@ export const AllBooks = () => {
             });
             if (response.status === 200) {
                 console.log('Książka została usunięta.');
+                setBooks(books);
             } else if (response.status === 404) {
                 console.log('Książka nie została znaleziona.');
             } else {
@@ -33,7 +38,6 @@ export const AllBooks = () => {
         } catch (error) {
             console.error('Błąd usuwania książki:', error);
         }
-        setSearch('*');
     };
 
     useEffect(() => {
@@ -56,6 +60,7 @@ export const AllBooks = () => {
                 books={books}
                 onEditClick={handleEditClick}
                 onDeleteClick={handleDeleteClick}
+                onAddClick={handleAddClick}
             />
         </>
 

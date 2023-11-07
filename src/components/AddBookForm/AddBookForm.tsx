@@ -3,8 +3,12 @@ import { headerLabels } from '../../utils/HeaderLabes';
 import { AdBookEntity } from 'types';
 import { apiUrl } from '../../config/api';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
-export const AddBookForm: React.FC = () => {
+export const AddBookForm: React.FC<{ isBookAdded: boolean; setIsBookAdded: (value: boolean) => void }> = ({
+    isBookAdded,
+    setIsBookAdded,
+}) => {
     const [book, setBook] = useState({
         title: '',
         isbn: '',
@@ -19,6 +23,7 @@ export const AddBookForm: React.FC = () => {
     const [categories, setCategories] = useState<string[]>([]);
     const [isbnError, setIsbnError] = useState('');
     const token: String | undefined = Cookies.get('token');
+    const navigate = useNavigate();
 
     useEffect(() => {
         (async () => {
@@ -31,16 +36,13 @@ export const AddBookForm: React.FC = () => {
                     },
                 });
                 const data = await res.json();
-                console.log(data);
-                const categoryNames = data.map((category: { name: String }) => category.name);
+                const categoryNames = data.map((category: { name: string }) => category.name);
                 setCategories(categoryNames);
             } catch (error) {
                 console.error('Błąd podczas pobierania kategorii:', error);
             }
         })();
-
-
-    }, []);
+    }, [token]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -76,9 +78,12 @@ export const AddBookForm: React.FC = () => {
             },
             body: JSON.stringify({
                 ...book,
-            })
+            }),
         });
-        console.log(res);
+
+        if (res.status === 200) {
+            setIsBookAdded(true);
+        }
     };
 
     return (
@@ -180,7 +185,9 @@ export const AddBookForm: React.FC = () => {
                             />
                         </td>
                         <td>
-                            <button type="submit" onClick={handleSubmit}>Dodaj książkę</button>
+                            <button type="submit" onClick={handleSubmit}>
+                                Dodaj książkę
+                            </button>
                         </td>
                     </tr>
                 </tbody>

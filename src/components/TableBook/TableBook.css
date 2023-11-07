@@ -39,7 +39,8 @@
 .edit-button,
 .delete-button,
 .search-button,
-.reset-button {
+.reset-button,
+.add-button {
     background: #fff;
     color: #000;
     border: none;
@@ -52,7 +53,8 @@
 
 .edit-button:hover,
 .search-button:hover,
-.reset-button:hover {
+.reset-button:hover,
+.add-button {
     background: #25f984;
 }
 

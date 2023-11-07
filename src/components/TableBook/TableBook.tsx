@@ -9,9 +9,11 @@ interface TableBookProps {
     books: AdBookEntity[];
     onEditClick: (book: AdBookEntity) => void;
     onDeleteClick: (book: AdBookEntity) => void;
+    onAddClick: (book: AdBookEntity) => void;
+
 }
 
-export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDeleteClick }) => {
+export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDeleteClick, onAddClick }) => {
 
     const { search, setSearch } = useContext(SearchContext);
     const [inputVal, setInputVal] = useState(search);
@@ -26,6 +28,8 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
         setSearch("");
         setInputVal("");
     }
+
+
 
     const convertDate = (date: Date) => {
         return new Date(date).toLocaleDateString();
@@ -57,6 +61,7 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
                     />
                     <button className="search-button" onClick={setSearchFromLocalState}>Szukaj</button>
                     <button className="reset-button" onClick={setResetSearch}>Reset</button>
+
                 </div>
                 {books.map((book) => (
                     <tr key={book.id}>
@@ -74,6 +79,9 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
                             </button>
                             <button className="delete-button" onClick={() => onDeleteClick(book)}>
                                 ❌
+                            </button>
+                            <button className="add-button" onClick={() => onAddClick(book)}>
+                                ➕
                             </button>
                         </td>
                     </tr>
