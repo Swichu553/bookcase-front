@@ -1,24 +1,30 @@
+// Main.tsx
 import React, { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import { MyBooks } from '../MyBooks/MyBooks';
 import { AllBooks } from '../AllBooks/AllBooks';
 import { AddBookForm } from '../AddBookForm/AddBookForm';
 import { Account } from '../Account/Account';
-import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { ErrorView } from '../ErrorView/ErrorView';
 import "./Main.css"
 
-export const Main = () => {
+interface Props {
+    setIsAuthenticated: (value: boolean) => void;
+};
+
+export const Main: React.FC<Props> = ({ setIsAuthenticated }) => {
     const [selectedMenuItem, setSelectedMenuItem] = useState('Moje książki');
+    const [isBookAdded, setIsBookAdded] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
     const handleLogout = () => {
         Cookies.remove('token');
+        setIsAuthenticated(false);
         setSelectedMenuItem('Wyloguj');
         navigate('/login');
-        window.location.reload();
     };
-
-    const [isBookAdded, setIsBookAdded] = useState(false);
 
     useEffect(() => {
         if (isBookAdded) {
@@ -27,6 +33,10 @@ export const Main = () => {
     }, [isBookAdded, navigate]);
 
     const renderRightComponent = () => {
+        if (errorMessage) {
+            return <ErrorView message={errorMessage} />;
+        }
+
         switch (selectedMenuItem) {
             case 'Moje książki':
                 return <MyBooks />;

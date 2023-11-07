@@ -23,7 +23,6 @@ export const AddBookForm: React.FC<{ isBookAdded: boolean; setIsBookAdded: (valu
     const [categories, setCategories] = useState<string[]>([]);
     const [isbnError, setIsbnError] = useState('');
     const token: String | undefined = Cookies.get('token');
-    const navigate = useNavigate();
 
     useEffect(() => {
         (async () => {
@@ -144,7 +143,8 @@ export const AddBookForm: React.FC<{ isBookAdded: boolean; setIsBookAdded: (valu
                                 type="Date"
                                 name="publicationDate"
                                 placeholder="Data publikacji"
-                                value={new Date(book.publicationDate).toISOString()}
+                                value={new Date(book.publicationDate).toISOString().split('T')[0]}
+
                                 onChange={handleInputChange}
                                 required
                             />

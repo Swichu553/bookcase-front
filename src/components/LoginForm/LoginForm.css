@@ -24,6 +24,10 @@
     transform: translate(-50%, -50%);
 }
 
+.login-form-error {
+    box-shadow: red;
+}
+
 .login-form h2 {
     margin-top: 0;
     font-size: 24px;
@@ -77,4 +81,8 @@
 
 .login-form button:hover {
     background: #25f984;
+}
+
+.error-message {
+    color: red;
 }

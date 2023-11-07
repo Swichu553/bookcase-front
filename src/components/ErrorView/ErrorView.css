@@ -1,0 +1,9 @@
+.error-view {
+    box-shadow: 0 0 10px red;
+    border-radius: 20px;
+    text-align: center;
+    color: #fff;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
