@@ -1,4 +1,3 @@
-// Main.tsx
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { MyBooks } from '../MyBooks/MyBooks';
@@ -15,7 +14,7 @@ interface Props {
 
 export const Main: React.FC<Props> = ({ setIsAuthenticated }) => {
     const [selectedMenuItem, setSelectedMenuItem] = useState('Moje książki');
-    const [isBookAdded, setIsBookAdded] = useState(false);
+    const [isBookAdded, setIsBookAdded] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
@@ -41,13 +40,13 @@ export const Main: React.FC<Props> = ({ setIsAuthenticated }) => {
             case 'Moje książki':
                 return <MyBooks />;
             case 'Wszystkie książki':
-                return <AllBooks />;
+                return <AllBooks selectedMenuItem={selectedMenuItem} setSelectedMenuItem={setSelectedMenuItem} />;
             case 'Dodaj książkę':
                 return <AddBookForm isBookAdded={isBookAdded} setIsBookAdded={setIsBookAdded} />;
             case 'Konto':
                 return <Account />;
-            case 'Wyloguj':
-                return null;
+            case "Error":
+                return <ErrorView message={errorMessage} />;
             default:
                 return null;
         }

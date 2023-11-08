@@ -9,6 +9,7 @@ import { UserContext } from '../../contexts/user.context';
 export const MyBooks = () => {
     const { search, setSearch } = useContext(SearchContext);
     const { userId, setUserId } = useContext(UserContext)
+    const [loadPage, setLoadPage] = useState(1);
     const [books, setBooks] = useState<AdBookEntity[]>([]);
     const token: String | undefined = Cookies.get('token');
 
@@ -21,9 +22,25 @@ export const MyBooks = () => {
 
     };
 
-    const handleDeleteClick = (book: AdBookEntity) => {
-
-        console.log('Usuwanie książki', book);
+    const handleDeleteClick = async (book: AdBookEntity) => {
+        try {
+            const response = await fetch(`${apiUrl}/user/${userId}/book/${book.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `${token}`,
+                },
+            });
+            if (response.status === 200) {
+                console.log('Książka została usunięta z bilbiteczki użytkownika.');
+                setLoadPage((prevPage) => prevPage + 1);
+            } else if (response.status === 404) {
+                console.log('Książka nie została znaleziona.');
+            } else {
+                console.log('Błąd usuwania książki.');
+            }
+        } catch (error) {
+            console.error('Błąd usuwania książki:', error);
+        }
     };
 
     useEffect(() => {
@@ -38,7 +55,7 @@ export const MyBooks = () => {
             const data = await res.json();
             setBooks(data);
         })()
-    }, [search])
+    }, [search, loadPage])
 
     return (
         <>

@@ -1,6 +1,6 @@
 .book-table {
     border-collapse: collapse;
-    width: 90%;
+    width: 100%;
     padding: 55px;
 }
 
@@ -60,4 +60,56 @@
 
 .delete-button:hover {
     background: #f92c25;
+}
+
+.description-textarea {
+    background-color: black;
+    color: white;
+    width: 100%;
+    height: auto;
+    resize: none;
+    border: none;
+    overflow: auto;
+}
+
+.description-popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.popup-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0 0 20px green;
+    background: black;
+    color: white;
+    font-family: 'Arial', sans-serif;
+
+}
+
+.close-button {
+    align-items: center;
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-description {
+    height: auto;
+    width: 250px;
+    margin-top: 10px;
+    white-space: pre-wrap;
 }

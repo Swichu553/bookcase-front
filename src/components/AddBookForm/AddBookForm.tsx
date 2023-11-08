@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { headerLabels } from '../../utils/HeaderLabes';
 import { AdBookEntity } from 'types';
 import { apiUrl } from '../../config/api';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
 
-export const AddBookForm: React.FC<{ isBookAdded: boolean; setIsBookAdded: (value: boolean) => void }> = ({
+
+interface Props {
+    isBookAdded: string;
+    setIsBookAdded: (value: string) => void;
+}
+
+export const AddBookForm: React.FC<Props> = ({
     isBookAdded,
     setIsBookAdded,
 }) => {
@@ -38,12 +44,12 @@ export const AddBookForm: React.FC<{ isBookAdded: boolean; setIsBookAdded: (valu
                 const categoryNames = data.map((category: { name: string }) => category.name);
                 setCategories(categoryNames);
             } catch (error) {
-                console.error('Błąd podczas pobierania kategorii:', error);
+
             }
         })();
     }, [token]);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
 
         if (name === 'isbn') {
@@ -81,7 +87,7 @@ export const AddBookForm: React.FC<{ isBookAdded: boolean; setIsBookAdded: (valu
         });
 
         if (res.status === 200) {
-            setIsBookAdded(true);
+            setIsBookAdded(book.title);
         }
     };
 
@@ -175,14 +181,13 @@ export const AddBookForm: React.FC<{ isBookAdded: boolean; setIsBookAdded: (valu
                             />
                         </td>
                         <td>
-                            <input
-                                type="text"
+                            <textarea
                                 name="description"
                                 placeholder="Opis"
                                 value={book.description}
                                 onChange={handleInputChange}
                                 required
-                            />
+                            ></textarea>
                         </td>
                         <td>
                             <button type="submit" onClick={handleSubmit}>

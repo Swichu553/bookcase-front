@@ -17,6 +17,8 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
 
     const { search, setSearch } = useContext(SearchContext);
     const [inputVal, setInputVal] = useState(search);
+    const [selectedDescription, setSelectedDescription] = useState<string | null>(null);
+
 
     const setSearchFromLocalState = (e: SyntheticEvent) => {
         e.preventDefault();
@@ -29,13 +31,14 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
         setInputVal("");
     }
 
-
-
     const convertDate = (date: Date) => {
         return new Date(date).toLocaleDateString();
-    }
+    };
 
 
+    const sortBooks = (books: AdBookEntity[]) => {
+        return ([...books].sort((a, b) => a.title.localeCompare(b.title)));
+    };
 
     return (
         <table className="book-table">
@@ -63,7 +66,7 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
                     <button className="reset-button" onClick={setResetSearch}>Reset</button>
 
                 </div>
-                {books.map((book) => (
+                {sortBooks(books).map((book) => (
                     <tr key={book.id}>
                         <td>{book.title}</td>
                         <td>{book.isbn}</td>
@@ -72,7 +75,16 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
                         <td>{book.publicationDate ? convertDate(book.publicationDate) : 'Brak daty'}</td>
                         <td>{book.categories}</td>
                         <td>{book.rating}</td>
-                        <td>{book.description}</td>
+                        <td>
+                            <div onClick={() => setSelectedDescription(book.description)}>
+                                <textarea
+                                    className="description-textarea"
+                                    value={book.description ? 'Opis' : ''}
+                                    readOnly
+                                />
+                            </div>
+
+                        </td>
                         <td>
                             <button className="edit-button" onClick={() => onEditClick(book)}>
                                 Edit
@@ -86,7 +98,24 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
                         </td>
                     </tr>
                 ))}
+                {selectedDescription && (
+                    <div className="description-popup">
+                        <div className="popup-content">
+                            <div className="popup-description">
+                                {selectedDescription}
+                                <p>
+                                    <button className="close-button" onClick={() => setSelectedDescription(null)}>
+                                        Zamknij
+                                    </button>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                )}
             </tbody>
-        </table >
+        </table>
+
     );
+
 };

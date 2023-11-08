@@ -2,6 +2,7 @@
     display: flex;
     background-color: black;
     min-height: 100vh;
+    width: auto;
 }
 
 .menu {
@@ -26,11 +27,15 @@
 }
 
 .menu li.selected {
-    background-color: #007bff;
+    background-color: rgba(255, 139, 139, 0.2);
     color: white;
 }
 
 .right-content {
     flex: 1;
     padding: 20px;
+}
+
+.error-message {
+    color: red;
 }
