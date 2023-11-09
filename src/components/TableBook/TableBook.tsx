@@ -80,7 +80,7 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
                                 <textarea
                                     className="description-textarea"
                                     value={book.description ? 'Opis' : ''}
-                                    readOnly
+
                                 />
                             </div>
 
