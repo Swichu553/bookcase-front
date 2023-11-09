@@ -40,9 +40,9 @@ https://github.com/Swichu553/bookcase-back
    ```bash
    cd bookcase-front
    ```
-  ```bash
+   ```bash
    npm install
-  ```
+   ```
    
 3. **Run the Application:**
    Start the local server on port 3001:
