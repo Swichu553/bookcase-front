@@ -3,6 +3,9 @@
 
 The Frontend Bookcase API is the frontend component of an application designed to manage books. It utilizes Node.js and React.js
 
+## Video presentation:
+https://youtu.be/2qhQCbkUk4w
+
 ## Technologies
 - Node.js,
 - React.js
