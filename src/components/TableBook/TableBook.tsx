@@ -4,14 +4,13 @@ import { headerLabels } from '../../utils/HeaderLabes';
 import { AdBookEntity } from 'types';
 import './TableBook.css';
 
-
 interface TableBookProps {
     books: AdBookEntity[];
     onEditClick: (book: AdBookEntity) => void;
     onDeleteClick: (book: AdBookEntity) => void;
     onAddClick: (book: AdBookEntity) => void;
 
-}
+};
 
 export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDeleteClick, onAddClick }) => {
 
@@ -64,7 +63,6 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
                     />
                     <button className="search-button" onClick={setSearchFromLocalState}>Szukaj</button>
                     <button className="reset-button" onClick={setResetSearch}>Reset</button>
-
                 </div>
                 {sortBooks(books).map((book) => (
                     <tr key={book.id}>
@@ -80,10 +78,8 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
                                 <textarea
                                     className="description-textarea"
                                     value={book.description ? 'Opis' : ''}
-
                                 />
                             </div>
-
                         </td>
                         <td>
                             <button className="edit-button" onClick={() => onEditClick(book)}>
@@ -97,7 +93,7 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
                             </button>
                         </td>
                     </tr>
-                ))}
+                ))};
                 {selectedDescription && (
                     <div className="description-popup">
                         <div className="popup-content">
@@ -109,13 +105,10 @@ export const TableBook: React.FC<TableBookProps> = ({ books, onEditClick, onDele
                                     </button>
                                 </p>
                             </div>
-
                         </div>
                     </div>
-                )}
+                )};
             </tbody>
         </table>
-
     );
-
 };

@@ -52,22 +52,12 @@ export const App = () => {
       <SearchContext.Provider value={{ search, setSearch }}>
         <UserContext.Provider value={{ userId, setUserId }}>
           <Routes>
-            <Route
-              path="/login"
-              element={
-                isAuthenticated ? (
-                  <Navigate to="/my" />
-                ) : (
-                  <LoginForm onLogin={handleLogin} errorMessage={errorMessage} />
-                )
-              }
-            />
-            <Route
-              path="/my"
-              element={
-                isAuthenticated ? <Main setIsAuthenticated={setIsAuthenticated} /> : <Navigate to="/login" />
-              }
-            />
+            <Route path="/login" element={
+              isAuthenticated ? (<Navigate to="/my" />)
+                : (<LoginForm onLogin={handleLogin} errorMessage={errorMessage} />)} />
+            <Route path="/my" element={
+              isAuthenticated ? <Main setIsAuthenticated={setIsAuthenticated} />
+                : <Navigate to="/login" />} />
             <Route path="/*" element={defaultRedirect} />
           </Routes>
         </UserContext.Provider>

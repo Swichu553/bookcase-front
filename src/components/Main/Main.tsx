@@ -34,7 +34,7 @@ export const Main: React.FC<Props> = ({ setIsAuthenticated }) => {
     const renderRightComponent = () => {
         if (errorMessage) {
             return <ErrorView message={errorMessage} />;
-        }
+        };
 
         switch (selectedMenuItem) {
             case 'Moje książki':
@@ -49,7 +49,7 @@ export const Main: React.FC<Props> = ({ setIsAuthenticated }) => {
                 return <ErrorView message={errorMessage} />;
             default:
                 return null;
-        }
+        };
     };
 
     return (

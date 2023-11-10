@@ -7,4 +7,4 @@ export const Header = () => {
             <h1 className='title'>📚 Biblioteczka 📚</h1>
         </header>
     );
-}
+};

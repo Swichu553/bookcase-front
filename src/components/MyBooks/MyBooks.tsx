@@ -8,18 +8,18 @@ import { UserContext } from '../../contexts/user.context';
 
 export const MyBooks = () => {
     const { search, setSearch } = useContext(SearchContext);
-    const { userId, setUserId } = useContext(UserContext)
+    const { userId, setUserId } = useContext(UserContext);
     const [loadPage, setLoadPage] = useState(1);
     const [books, setBooks] = useState<AdBookEntity[]>([]);
     const token: String | undefined = Cookies.get('token');
 
     const handleEditClick = (book: AdBookEntity) => {
-
+        //@TODO do zrobienie obsługa książek
         console.log('Edycja książki', book);
     };
 
     const handleAddClick = (book: AdBookEntity) => {
-
+        //%TODO do zrobienia dodawanie
     };
 
     const handleDeleteClick = async (book: AdBookEntity) => {
@@ -37,10 +37,10 @@ export const MyBooks = () => {
                 console.log('Książka nie została znaleziona.');
             } else {
                 console.log('Błąd usuwania książki.');
-            }
+            };
         } catch (error) {
             console.error('Błąd usuwania książki:', error);
-        }
+        };
     };
 
     useEffect(() => {
@@ -55,7 +55,7 @@ export const MyBooks = () => {
             const data = await res.json();
             setBooks(data);
         })()
-    }, [search, loadPage])
+    }, [search, loadPage]);
 
     return (
         <>
@@ -66,8 +66,5 @@ export const MyBooks = () => {
                 onAddClick={handleAddClick}
             />
         </>
-
     );
-
-
 };

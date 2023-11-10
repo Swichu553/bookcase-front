@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 interface Props {
     isBookAdded: string;
     setIsBookAdded: (value: string) => void;
-}
+};
 
 export const AddBookForm: React.FC<Props> = ({
     isBookAdded,
@@ -59,8 +59,8 @@ export const AddBookForm: React.FC<Props> = ({
                 setIsbnError('');
             } else {
                 setIsbnError('Błędny numer ISBN');
-            }
-        }
+            };
+        };
 
         setBook({
             ...book,
@@ -73,7 +73,7 @@ export const AddBookForm: React.FC<Props> = ({
 
         if (isbnError) {
             return;
-        }
+        };
 
         const res = await fetch(`${apiUrl}/book/`, {
             method: 'POST',
@@ -88,7 +88,7 @@ export const AddBookForm: React.FC<Props> = ({
 
         if (res.status === 200) {
             setIsBookAdded(book.title);
-        }
+        };
     };
 
     return (

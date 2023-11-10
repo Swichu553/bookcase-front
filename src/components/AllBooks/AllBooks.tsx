@@ -11,14 +11,14 @@ import { UserContext } from '../../contexts/user.context';
 interface Props {
     selectedMenuItem: string;
     setSelectedMenuItem: (value: string) => void;
-}
+};
 
 export const AllBooks: React.FC<Props> = ({
     selectedMenuItem,
     setSelectedMenuItem,
 }) => {
     const { search, setSearch } = useContext(SearchContext);
-    const { userId, setUserId } = useContext(UserContext)
+    const { userId, setUserId } = useContext(UserContext);
     const [books, setBooks] = useState<AdBookEntity[]>([]);
     const [loadPage, setLoadPage] = useState(1);
     const token: String | undefined = Cookies.get('token');
@@ -44,15 +44,11 @@ export const AllBooks: React.FC<Props> = ({
                 setSelectedMenuItem("Error");
             } else {
                 setSelectedMenuItem("Error");
-
-
-            }
+            };
         } catch (error) {
             setSelectedMenuItem("Error");
-        }
+        };
     };
-
-
 
     const handleDeleteClick = async (book: AdBookEntity) => {
         try {
@@ -69,10 +65,10 @@ export const AllBooks: React.FC<Props> = ({
                 console.log('Książka nie została znaleziona.');
             } else {
                 console.log('Błąd usuwania książki.');
-            }
+            };
         } catch (error) {
             console.error('Błąd usuwania książki:', error);
-        }
+        };
     };
 
     useEffect(() => {
@@ -87,7 +83,7 @@ export const AllBooks: React.FC<Props> = ({
             const data = await res.json();
             setBooks(data);
         })()
-    }, [search, loadPage])
+    }, [search, loadPage]);
 
     return (
         <>
@@ -98,8 +94,5 @@ export const AllBooks: React.FC<Props> = ({
                 onAddClick={handleAddClick}
             />
         </>
-
     );
-
-
 };
