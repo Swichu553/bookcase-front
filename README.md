@@ -1,46 +1,57 @@
-# Getting Started with Create React App
+![header](https://github.com/Swichu553/bookcase-back/assets/142433450/7aa16609-ecce-4ff4-a779-12300a174c17)
+# Frontend Bookcase 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Frontend Bookcase API is the frontend component of an application designed to manage books. It utilizes Node.js and React.js
 
-## Available Scripts
+## Technologies
+- Node.js,
+- React.js
+- TypeScript
 
-In the project directory, you can run:
+# Features
 
-### `npm start`
+## Book Overview
+The application's homepage displays a list of available books with the ability to search by title.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Adding Books to the Library
+Users can add new books by filling out a form and confirming the addition.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Deleting Books
+The ability to remove books directly from the library through user interface interaction.
 
-### `npm test`
+## Personalized Bookshelves
+Users can create their own bookshelves, organizing books according to their own categories.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Additional Configuration
+The application is configured using react-app-rewired for enhanced customization.
 
-### `npm run build`
+## Link to Backend Repository:
+https://github.com/Swichu553/bookcase-back
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Running the Frontend Application
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **Clone the Repository:**
+   Clone the backend application repository to your local machine:
+   ```bash
+   git clone https://github.com/Swichu553/bookcase-back.git
+   ```
+2. **Install Dependencies:**
+   Navigate to the project directory and install necessary dependencies using the command:
+   ```bash
+   cd bookcase-front
+   ```
+   ```bash
+   npm install
+   ```
+   
+3. **Run the Application:**
+   Start the local server on port 3001:
+   ```bash
+   react-app-rewired start
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Screenshots
+![Login](https://github.com/Swichu553/bookcase-back/assets/142433450/c39e7111-d70d-46f9-b8e1-499e56dbd557)
+![MyBook](https://github.com/Swichu553/bookcase-back/assets/142433450/6b171fc7-f5f3-4cda-ae5e-ae366cd43433)
+![Search](https://github.com/Swichu553/bookcase-back/assets/142433450/494cb72a-aae2-414e-a1c4-e108ce81e052)
+![DescriptionBook](https://github.com/Swichu553/bookcase-back/assets/142433450/df652d28-ccb3-45c1-aaeb-8fe085f75779)
